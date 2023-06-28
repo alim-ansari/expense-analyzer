@@ -1,5 +1,4 @@
 import Head from 'next/head';
-import Sidebar from './Sidebar';
 import Container from '@mui/material/Container';
 import * as React from 'react';
 import PropTypes from 'prop-types';
