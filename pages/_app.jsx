@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { UserProvider } from '@auth0/nextjs-auth0/client';
-
 import Layout from '../components/Layout';
 import '@fortawesome/fontawesome-svg-core/styles.css';
 import initFontAwesome from '../utils/initFontAwesome';

@@ -1,7 +1,5 @@
 import Head from 'next/head';
-import Container from '@mui/material/Container';
 import * as React from 'react';
-import PropTypes from 'prop-types';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -52,7 +50,7 @@ function ResponsiveAppBar() {
       <Box sx={{ flexGrow: 0 }}>
         <Tooltip title="Open settings">
           <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-            <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+            <Avatar alt="Expense Analyzer" src="/static/images/avatar/2.jpg" />
           </IconButton>
         </Tooltip>
         <Menu
@@ -139,7 +137,7 @@ export default function Layout(props, { children }) {
   return (
     <Box sx={{ display: 'flex' }}>
       <Head>
-        <title>Next.js Sample App</title>
+        <title>Expense Analyzer</title>
       </Head>
       <CssBaseline />
       <AppBar
