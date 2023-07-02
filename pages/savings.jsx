@@ -9,7 +9,7 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import MdDelete from 'react-icons/md';
+import { MdDelete } from 'react-icons/md';
 import { Box, Snackbar, Stack } from '@mui/material';
 import MuiAlert from '@mui/material/Alert';
 import useCurrency from '../store/store';
@@ -99,9 +99,9 @@ const AllSavings = props => {
                   <TableCell align="center">
                     {row.date ? new Date(row.date).toLocaleDateString('en-GB') : '-'}
                   </TableCell>
-                  <TableCell align="center">
+                  <TableCell align="center" className="flex justify-center">
                     <div role="button" onClick={() => deleteTransaction(row._id)}>
-                      <MdDelete />
+                      <MdDelete size="24px" />
                     </div>
                   </TableCell>
                 </TableRow>
