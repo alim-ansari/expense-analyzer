@@ -236,163 +236,163 @@ const Dashboard = props => {
   };
 
   return loading ? (
-    <Layout>
-      <Box sx={{ display: 'flex', height: '100vh', width: '100vw' }}>
-        <CircularProgress sx={{ margin: 'auto' }} />
-      </Box>
-    </Layout>
+    <Box sx={{ display: 'flex', height: '100vh', width: '100vw' }}>
+      <CircularProgress sx={{ margin: 'auto' }} />
+    </Box>
   ) : (
     <>
-      <Box sx={{ mb: 1 }}>
-        <Grid
-          container
-          spacing={{ xs: 2, md: 3 }}
-          columns={{ xs: 4, sm: 12, md: 12 }}
-          direction="row"
-          justifyContent="space-around"
-          alignItems="center"
-          flexWrap="wrap">
-          <Grid item xs={4}>
-            <Box>
-              <Card variant="outlined" className="bg-blue-700">
-                <React.Fragment>
-                  <CardContent>
-                    <Typography variant="h5" component="div">
-                      Balance
-                    </Typography>
-                    <Typography variant="bold">
-                      {currency} {parseFloat(saving - expense).toFixed(2)}
-                    </Typography>
-                  </CardContent>
-                </React.Fragment>
-              </Card>
-            </Box>
-          </Grid>
-          <Grid item xs={4}>
-            <Box>
-              <Card variant="outlined" className="bg-green-700">
-                <React.Fragment>
-                  <CardContent>
-                    <Typography variant="h5" component="div">
-                      Savings
-                    </Typography>
-                    <Typography variant="bold">
-                      {currency} {parseFloat(saving).toFixed(2)}
-                    </Typography>
-                  </CardContent>
-                </React.Fragment>
-              </Card>
-            </Box>
-          </Grid>
-          <Grid item xs={4}>
-            <Box>
-              <Card variant="outlined" className="bg-red-700">
-                <React.Fragment>
-                  <CardContent>
-                    <Typography variant="h5" component="div">
-                      Expenses
-                    </Typography>
-                    <Typography variant="bold">
-                      {currency} {parseFloat(expense).toFixed(2)}
-                    </Typography>
-                  </CardContent>
-                </React.Fragment>
-              </Card>
-            </Box>
-          </Grid>
-        </Grid>
-      </Box>
-
-      {expense == 0 && saving == 0 ? (
-        <>
-          {!written ? (
-            <div className="text-xl  font-bold mt-4 pt-4 leading-relaxed">
-              <Typewriter
-                options={{
-                  delay: 20,
-                  deleteSpeed: 20,
-                  autoStart: true,
-                  loop: false
-                }}
-                onInit={typewriter => {
-                  typewriter
-                    .typeString('Add some transactions to view Information')
-                    .pauseFor(300)
-                    .deleteChars(11)
-                    .typeString('Statistics...')
-                    .pauseFor(2500)
-                    .deleteAll()
-                    .callFunction(() => {
-                      setWritten(true);
-                    })
-                    .start();
-                }}
-              />
-            </div>
-          ) : (
-            <Grid
-              container
-              direction="row"
-              justifyContent="space-evenly"
-              alignItems="center"
-              spacing={2}
-              className="mt-1">
-              <Grid item xs={6}>
-                <List>
-                  <Link href={'/add-savings'} key={'Add Savings'}>
-                    <ListItem disablePadding>
-                      <ListItemButton>
-                        <ListItemIcon>
-                          <MdPayments size="24px" />
-                        </ListItemIcon>
-                        <ListItemText primary={'Add Savings'} />
-                      </ListItemButton>
-                    </ListItem>
-                  </Link>
-                </List>
-              </Grid>
-
-              <Grid item xs={6}>
-                <List>
-                  <Link href={'/add-expenses'} key={'Add Expenses'}>
-                    <ListItem disablePadding>
-                      <ListItemButton>
-                        <ListItemIcon>
-                          <MdPayment size="24px" />
-                        </ListItemIcon>
-                        <ListItemText primary={'Add Expenses'} />
-                      </ListItemButton>
-                    </ListItem>
-                  </Link>
-                </List>
-              </Grid>
-            </Grid>
-          )}
-        </>
-      ) : (
-        <Box sx={{ my: 4 }}>
+      <Layout>
+        <Box sx={{ mb: 1 }}>
           <Grid
             container
             spacing={{ xs: 2, md: 3 }}
             columns={{ xs: 4, sm: 12, md: 12 }}
             direction="row"
             justifyContent="space-around"
-            alignItems="center">
-            <Grid item xs={4} sx={{ mb: 4 }}>
-              <h3 className="text-center font-bold text-xl mb-4">Statistics</h3>
-              <Doughnut data={data} options={donutOptions} />
+            alignItems="center"
+            flexWrap="wrap">
+            <Grid item xs={4}>
+              <Box>
+                <Card variant="outlined" className="bg-blue-700">
+                  <React.Fragment>
+                    <CardContent>
+                      <Typography variant="h5" component="div">
+                        Balance
+                      </Typography>
+                      <Typography variant="bold">
+                        {currency} {parseFloat(saving - expense).toFixed(2)}
+                      </Typography>
+                    </CardContent>
+                  </React.Fragment>
+                </Card>
+              </Box>
             </Grid>
-            <Grid item xs={4} sx={{ mb: 4 }}>
-              <h3 className="text-center font-bold text-xl mb-4">Savings Categories</h3>
-              <Doughnut data={savingsCategoryData} options={donutOptions} />
+            <Grid item xs={4}>
+              <Box>
+                <Card variant="outlined" className="bg-green-700">
+                  <React.Fragment>
+                    <CardContent>
+                      <Typography variant="h5" component="div">
+                        Savings
+                      </Typography>
+                      <Typography variant="bold">
+                        {currency} {parseFloat(saving).toFixed(2)}
+                      </Typography>
+                    </CardContent>
+                  </React.Fragment>
+                </Card>
+              </Box>
             </Grid>
-            <Grid item xs={4} sx={{ mb: 4 }}>
-              <h3 className="text-center font-bold text-xl mb-4">Expenses Categories</h3>
-              <Doughnut data={expensesCategoryData} options={donutOptions} />
+            <Grid item xs={4}>
+              <Box>
+                <Card variant="outlined" className="bg-red-700">
+                  <React.Fragment>
+                    <CardContent>
+                      <Typography variant="h5" component="div">
+                        Expenses
+                      </Typography>
+                      <Typography variant="bold">
+                        {currency} {parseFloat(expense).toFixed(2)}
+                      </Typography>
+                    </CardContent>
+                  </React.Fragment>
+                </Card>
+              </Box>
             </Grid>
           </Grid>
         </Box>
-      )}
+
+        {expense == 0 && saving == 0 ? (
+          <>
+            {!written ? (
+              <div className="text-xl  font-bold mt-4 pt-4 leading-relaxed">
+                <Typewriter
+                  options={{
+                    delay: 20,
+                    deleteSpeed: 20,
+                    autoStart: true,
+                    loop: false
+                  }}
+                  onInit={typewriter => {
+                    typewriter
+                      .typeString('Add some transactions to view Information')
+                      .pauseFor(300)
+                      .deleteChars(11)
+                      .typeString('Statistics...')
+                      .pauseFor(2500)
+                      .deleteAll()
+                      .callFunction(() => {
+                        setWritten(true);
+                      })
+                      .start();
+                  }}
+                />
+              </div>
+            ) : (
+              <Grid
+                container
+                direction="row"
+                justifyContent="space-evenly"
+                alignItems="center"
+                spacing={2}
+                className="mt-1">
+                <Grid item xs={6}>
+                  <List>
+                    <Link href={'/add-savings'} key={'Add Savings'}>
+                      <ListItem disablePadding>
+                        <ListItemButton>
+                          <ListItemIcon>
+                            <MdPayments size="24px" />
+                          </ListItemIcon>
+                          <ListItemText primary={'Add Savings'} />
+                        </ListItemButton>
+                      </ListItem>
+                    </Link>
+                  </List>
+                </Grid>
+
+                <Grid item xs={6}>
+                  <List>
+                    <Link href={'/add-expenses'} key={'Add Expenses'}>
+                      <ListItem disablePadding>
+                        <ListItemButton>
+                          <ListItemIcon>
+                            <MdPayment size="24px" />
+                          </ListItemIcon>
+                          <ListItemText primary={'Add Expenses'} />
+                        </ListItemButton>
+                      </ListItem>
+                    </Link>
+                  </List>
+                </Grid>
+              </Grid>
+            )}
+          </>
+        ) : (
+          <Box sx={{ my: 4 }}>
+            <Grid
+              container
+              spacing={{ xs: 2, md: 3 }}
+              columns={{ xs: 4, sm: 12, md: 12 }}
+              direction="row"
+              justifyContent="space-around"
+              alignItems="center">
+              <Grid item xs={4} sx={{ mb: 4 }}>
+                <h3 className="text-center font-bold text-xl mb-4">Statistics</h3>
+                <Doughnut data={data} options={donutOptions} />
+              </Grid>
+              <Grid item xs={4} sx={{ mb: 4 }}>
+                <h3 className="text-center font-bold text-xl mb-4">Savings Categories</h3>
+                <Doughnut data={savingsCategoryData} options={donutOptions} />
+              </Grid>
+              <Grid item xs={4} sx={{ mb: 4 }}>
+                <h3 className="text-center font-bold text-xl mb-4">Expenses Categories</h3>
+                <Doughnut data={expensesCategoryData} options={donutOptions} />
+              </Grid>
+            </Grid>
+          </Box>
+        )}
+      </Layout>
     </>
   );
 };
