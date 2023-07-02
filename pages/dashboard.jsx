@@ -192,10 +192,10 @@ const Dashboard = props => {
         setExpensesCategory(expenseCategory);
         setSaving(saving);
         setExpense(expense);
-        setLoading(false);
       } catch (err) {}
     }
     fetchTransactions();
+    setLoading(false);
     return () => {};
   }, [user?.email]);
   const data = {
@@ -237,7 +237,11 @@ const Dashboard = props => {
 
   return (
     <Layout>
-      {!loading ? (
+      {loading ? (
+        <Box sx={{ display: 'flex', height: '100vh', width: '100vw' }}>
+          <CircularProgress sx={{ margin: 'auto' }} />
+        </Box>
+      ) : (
         <>
           <Box sx={{ mb: 1 }}>
             <Grid
@@ -390,10 +394,6 @@ const Dashboard = props => {
             </Box>
           )}
         </>
-      ) : (
-        <Box sx={{ display: 'flex', height: '100vh', width: '100vw' }}>
-          <CircularProgress sx={{ margin: 'auto' }} />
-        </Box>
       )}
     </Layout>
   );
