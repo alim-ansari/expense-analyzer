@@ -17,8 +17,8 @@ import {
 } from '@mui/material';
 import { Card } from '@mui/material';
 import useCurrency from '../store/store';
-import PaymentsIcon from '@mui/icons-material/Payments';
-import { Payment } from '@mui/icons-material';
+import { MdPayments } from 'react-icons/md';
+import { MdPayment } from 'react-icons/md';
 import Link from 'next/link';
 import Typewriter from 'typewriter-effect';
 import { setup } from '../lib/csrf';
@@ -338,7 +338,7 @@ const Dashboard = props => {
                     <ListItem disablePadding>
                       <ListItemButton>
                         <ListItemIcon>
-                          <PaymentsIcon />
+                          <MdPayments size="24px" />
                         </ListItemIcon>
                         <ListItemText primary={'Add Savings'} />
                       </ListItemButton>
@@ -353,7 +353,7 @@ const Dashboard = props => {
                     <ListItem disablePadding>
                       <ListItemButton>
                         <ListItemIcon>
-                          <Payment />
+                          <MdPayment size="24px" />
                         </ListItemIcon>
                         <ListItemText primary={'Add Expenses'} />
                       </ListItemButton>

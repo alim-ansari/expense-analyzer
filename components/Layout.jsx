@@ -10,7 +10,6 @@ import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import MenuIcon from '@mui/icons-material/Menu';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Menu from '@mui/material/Menu';
@@ -31,12 +30,13 @@ import {
 } from '@mui/material';
 import { useUser } from '@auth0/nextjs-auth0/client';
 import { useRouter } from 'next/router';
-import { Dashboard } from '@mui/icons-material';
-import PaymentsIcon from '@mui/icons-material/Payments';
-import { Payment } from '@mui/icons-material';
+import { BiSolidDashboard } from 'react-icons/bi';
+import { MdPayments } from 'react-icons/md';
+import { MdPayment } from 'react-icons/md';
+import { MdMenu } from 'react-icons/md';
 import Link from 'next/link';
-import TrendingUpIcon from '@mui/icons-material/TrendingUp';
-import { TrendingDown } from '@mui/icons-material';
+import { TfiStatsUp } from 'react-icons/tfi';
+import { TfiStatsDown } from 'react-icons/tfi';
 import axios from 'axios';
 import useCurrency from '../store/store';
 const pages = ['Products', 'Pricing', 'Blog'];
@@ -203,7 +203,15 @@ export default function Layout(props) {
             <ListItem disablePadding>
               <ListItemButton>
                 <ListItemIcon>
-                  {index === 0 ? <Dashboard /> : index === 1 ? <PaymentsIcon /> : index === 2 ? <Payment /> : <></>}
+                  {index === 0 ? (
+                    <BiSolidDashboard size="24px" />
+                  ) : index === 1 ? (
+                    <MdPayments size="24px" />
+                  ) : index === 2 ? (
+                    <MdPayment size="24px" />
+                  ) : (
+                    <></>
+                  )}
                 </ListItemIcon>
                 <ListItemText primary={text.name} />
               </ListItemButton>
@@ -222,11 +230,11 @@ export default function Layout(props) {
               <ListItemButton>
                 <ListItemIcon>
                   {index === 0 ? (
-                    <TrendingUpIcon />
+                    <TfiStatsUp size="24px" />
                   ) : index === 1 ? (
-                    <TrendingDown />
+                    <TfiStatsDown size="24px" />
                   ) : index === 2 ? (
-                    <Payment />
+                    <MdPayment size="24px" />
                   ) : (
                     <></>
                   )}
@@ -262,7 +270,7 @@ export default function Layout(props) {
             edge="start"
             onClick={handleDrawerToggle}
             sx={{ mr: 2, display: { sm: 'none' } }}>
-            <MenuIcon />
+            <MdMenu />
           </IconButton>
           <Typography
             variant="h6"

@@ -9,7 +9,7 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import DeleteIcon from '@mui/icons-material/Delete';
+import MdDelete from 'react-icons/md';
 import { Box, Snackbar, Stack } from '@mui/material';
 import MuiAlert from '@mui/material/Alert';
 import useCurrency from '../store/store';
@@ -101,7 +101,7 @@ const AllSavings = props => {
                   </TableCell>
                   <TableCell align="center">
                     <div role="button" onClick={() => deleteTransaction(row._id)}>
-                      <DeleteIcon />
+                      <MdDelete />
                     </div>
                   </TableCell>
                 </TableRow>
