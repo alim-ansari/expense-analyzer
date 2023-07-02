@@ -173,6 +173,7 @@ const Dashboard = props => {
     async function fetchTransactions() {
       try {
         const res = await axios.post(`/api/all-transactions`, { email: user?.email });
+
         const data = res.data.transactions;
         let saving = data.filter(t => t.type === 'saving').reduce((acc, obj) => acc + obj.amount, 0);
         let expense = data.filter(t => t.type === 'expense').reduce((acc, obj) => acc + obj.amount, 0);
@@ -192,10 +193,13 @@ const Dashboard = props => {
         setExpensesCategory(expenseCategory);
         setSaving(saving);
         setExpense(expense);
+        if (res.data) {
+          setLoading(false);
+        }
       } catch (err) {}
     }
     fetchTransactions();
-    setLoading(false);
+
     return () => {};
   }, [user?.email]);
   const data = {
