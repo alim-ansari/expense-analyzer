@@ -1,27 +1,16 @@
 import * as React from 'react';
-import Avatar from '@mui/material/Avatar';
-import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
-import Link from '@mui/material/Link';
-import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
-import PaymentsIcon from '@mui/icons-material/Payments';
 import Typography from '@mui/material/Typography';
-import Container from '@mui/material/Container';
 import Layout from '../components/Layout';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
-import CurrencyTextField from '@unicef/material-ui-currency-textfield';
 import axios from 'axios';
 import Button from '@mui/material/Button';
 import Snackbar from '@mui/material/Snackbar';
-import IconButton from '@mui/material/IconButton';
-import CloseIcon from '@mui/icons-material/Close';
 import MuiAlert from '@mui/material/Alert';
 import { Stack } from '@mui/material';
 import { useUser } from '@auth0/nextjs-auth0/client';
-import csrf from '../lib/csrf';
+import { setup } from '../lib/csrf';
 const Alert = React.forwardRef(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
 });
@@ -44,9 +33,7 @@ export default function Savings(props) {
         date: date,
         amount: Number(amount)
       };
-      const result = await axios.post('/api/add-transaction', submitData, {
-        headers: { 'CSRF-Token': props.csrfToken }
-      });
+      const result = await axios.post('/api/add-transaction', submitData);
       if (result.data.acknowledged) {
         setOpen(true);
         setAmount('');
@@ -92,7 +79,7 @@ export default function Savings(props) {
   }
 
   return (
-    <Layout csrfToken={props.csrfToken}>
+    <Layout>
       <Box
         sx={{
           marginTop: 8,
@@ -173,10 +160,6 @@ export default function Savings(props) {
   );
 }
 
-export async function getServerSideProps(context) {
-  const { req, res } = context;
-  await csrf(req, res);
-  return {
-    props: { csrfToken: req.csrfToken() }
-  };
-}
+export const getServerSideProps = setup(async ({ req, res }) => {
+  return { props: {} };
+});

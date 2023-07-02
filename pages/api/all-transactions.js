@@ -1,9 +1,8 @@
-import csrf from '../../lib/csrf';
+import { csrf } from '../../lib/csrf';
 import clientPromise from '../../lib/mongodb';
 
-export default async function handler(req, res) {
+async function handler(req, res) {
   try {
-    await csrf(req, res);
     switch (req.method) {
       case 'POST':
         if (req.body?.email) {
@@ -39,3 +38,4 @@ export default async function handler(req, res) {
     res.json({ error: 'ISE' });
   }
 }
+export default csrf(handler);

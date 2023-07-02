@@ -3,16 +3,13 @@ import * as React from 'react';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import CssBaseline from '@mui/material/CssBaseline';
-import Divider from '@mui/material/Divider';
 import Drawer from '@mui/material/Drawer';
 import IconButton from '@mui/material/IconButton';
-import InboxIcon from '@mui/icons-material/MoveToInbox';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import MailIcon from '@mui/icons-material/Mail';
 import MenuIcon from '@mui/icons-material/Menu';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
@@ -21,7 +18,6 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
-import AdbIcon from '@mui/icons-material/Adb';
 import {
   CircularProgress,
   Dialog,
@@ -134,11 +130,7 @@ export default function Layout(props) {
           <Button onClick={handleClose}>Cancel</Button>
           <Button
             onClick={async () => {
-              const result = await axios.post(
-                '/api/edit-currency',
-                { email: user?.email, currency: currencyVal },
-                { headers: { 'CSRF-Token': props.csrfToken } }
-              );
+              const result = await axios.post('/api/edit-currency', { email: user?.email, currency: currencyVal });
               if (result.data.acknowledged) {
                 handleClose();
                 setCurrency({ currency: currencyVal });

@@ -12,9 +12,8 @@ import Paper from '@mui/material/Paper';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { Box, Snackbar, Stack } from '@mui/material';
 import MuiAlert from '@mui/material/Alert';
-
 import useCurrency from '../store/store';
-import csrf from '../lib/csrf';
+import { setup } from '../lib/csrf';
 const Alert = React.forwardRef(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
 });
@@ -24,14 +23,10 @@ const AllSavings = props => {
   const currency = useCurrency(state => state.currency);
 
   const deleteTransaction = async id => {
-    let result = await axios.post('/api/delete-transaction', { id }, { headers: { 'CSRF-Token': props.csrfToken } });
+    let result = await axios.post('/api/delete-transaction', { id });
     if (result.data.acknowledged) {
       setOpen(true);
-      const res = await axios.post(
-        `/api/all-transactions`,
-        { email: user?.email, type: 'saving' },
-        { headers: { 'CSRF-Token': props.csrfToken } }
-      );
+      const res = await axios.post(`/api/all-transactions`, { email: user?.email, type: 'saving' });
       const data = res.data.transactions;
 
       setAllTransactions(data);
@@ -52,11 +47,7 @@ const AllSavings = props => {
   React.useEffect(() => {
     async function fetchTransactions() {
       try {
-        const res = await axios.post(
-          `/api/all-transactions`,
-          { email: user?.email, type: 'saving' },
-          { headers: { 'CSRF-Token': props.csrfToken } }
-        );
+        const res = await axios.post(`/api/all-transactions`, { email: user?.email, type: 'saving' });
         const data = res.data.transactions;
 
         setAllTransactions(data);
@@ -67,7 +58,7 @@ const AllSavings = props => {
     return () => {};
   }, [user?.email]);
   return (
-    <Layout csrfToken={props.csrfToken}>
+    <Layout>
       <Stack spacing={2} sx={{ width: '100%' }}>
         <Snackbar open={open} autoHideDuration={3000} onClose={handleClose}>
           <Alert onClose={handleClose} severity="success" sx={{ width: '100%', color: 'white' }}>
@@ -125,10 +116,6 @@ const AllSavings = props => {
 
 export default AllSavings;
 
-export async function getServerSideProps(context) {
-  const { req, res } = context;
-  await csrf(req, res);
-  return {
-    props: { csrfToken: req.csrfToken() }
-  };
-}
+export const getServerSideProps = setup(async ({ req, res }) => {
+  return { props: {} };
+});

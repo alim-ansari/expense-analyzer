@@ -6,10 +6,8 @@ import axios from 'axios';
 import { useUser } from '@auth0/nextjs-auth0/client';
 import {
   Box,
-  CardActionArea,
   CardContent,
   Grid,
-  IconButton,
   List,
   ListItem,
   ListItemButton,
@@ -23,111 +21,128 @@ import PaymentsIcon from '@mui/icons-material/Payments';
 import { Payment } from '@mui/icons-material';
 import Link from 'next/link';
 import Typewriter from 'typewriter-effect';
-import csrf from '../lib/csrf';
+import { setup } from '../lib/csrf';
 
 ChartJS.register(ArcElement, Tooltip, Legend);
+function shuffle(array = COLORS.reverse()) {
+  let currentIndex = array.length,
+    randomIndex;
 
+  // While there remain elements to shuffle.
+  while (currentIndex != 0) {
+    // Pick a remaining element.
+    randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex--;
+
+    // And swap it with the current element.
+    [array[currentIndex], array[randomIndex]] = [array[randomIndex], array[currentIndex]];
+  }
+
+  return array;
+}
+const COLORS = [
+  'rgb(220,33,442)',
+  'rgb(127,230,18)',
+  'rgb(93,132,246)',
+  'rgb(198,75,10)',
+  'rgb(55,192,98)',
+  'rgb(210,215,17)',
+  'rgb(15,150,205)',
+  'rgb(78,176,33)',
+  'rgb(242,57,201)',
+  'rgb(88,198,108)',
+  'rgb(127,40,237)',
+  'rgb(10,99,120)',
+  'rgb(215,38,152)',
+  'rgb(171,205,40)',
+  'rgb(55,76,101)',
+  'rgb(33,210,58)',
+  'rgb(185,20,135)',
+  'rgb(252,176,65)',
+  'rgb(29,182,170)',
+  'rgb(63,82,244)',
+  'rgb(144,210,31)',
+  'rgb(224,102,86)',
+  'rgb(46,150,246)',
+  'rgb(63,174,44)',
+  'rgb(237,24,109)',
+  'rgb(176,51,76)',
+  'rgb(93,39,154)',
+  'rgb(232,34,217)',
+  'rgb(128,218,156)',
+  'rgb(225,34,71)',
+  'rgb(88,182,204)',
+  'rgb(127,28,112)',
+  'rgb(182,117,189)',
+  'rgb(13,224,42)',
+  'rgb(44,65,210)',
+  'rgb(199,66,31)',
+  'rgb(57,211,128)',
+  'rgb(31,74,163)',
+  'rgb(240,82,179)',
+  'rgb(160,186,37)',
+  'rgb(88,160,212)',
+  'rgb(127,10,66)',
+  'rgb(187,86,26)',
+  'rgb(14,100,129)',
+  'rgb(90,43,160)',
+  'rgb(47,147,235)',
+  'rgb(141,37,171)',
+  'rgb(187,171,24)',
+  'rgb(150,12,93)',
+  'rgb(82,229,199)',
+  'rgb(255,24,75)',
+  'rgb(134,222,128)',
+  'rgb(14,58,79)',
+  'rgb(33,221,250)',
+  'rgb(222,9,159)',
+  'rgb(115,151,59)',
+  'rgb(63,68,113)',
+  'rgb(255,71,16)',
+  'rgb(231,26,195)',
+  'rgb(14,171,153)',
+  'rgb(64,31,158)',
+  'rgb(127,91,13)',
+  'rgb(221,37,99)',
+  'rgb(60,191,167)',
+  'rgb(255,0,240)',
+  'rgb(160,215,29)',
+  'rgb(30,15,214)',
+  'rgb(148,112,59)',
+  'rgb(187,61,24)',
+  'rgb(78,99,196)',
+  'rgb(127,93,12)',
+  'rgb(179,9,73)',
+  'rgb(99,154,209)',
+  'rgb(255,192,15)',
+  'rgb(187,127,224)',
+  'rgb(59,132,96)',
+  'rgb(246,39,169)',
+  'rgb(135,12,152)',
+  'rgb(228,133,24)',
+  'rgb(49,190,187)',
+  'rgb(87,40,150)',
+  'rgb(189,142,94)',
+  'rgb(126,193,220)',
+  'rgb(52,61,98)',
+  'rgb(255,111,91)',
+  'rgb(78,110,212)',
+  'rgb(94,88,66)',
+  'rgb(187,6,157)',
+  'rgb(23,146,91)',
+  'rgb(62,218,240)',
+  'rgb(227,24,172)',
+  'rgb(94,108,69)',
+  'rgb(46,113,48)',
+  'rgb(205,9,232)',
+  'rgb(141,203,111)',
+  'rgb(97,37,87)',
+  'rgb(223,61,105)',
+  'rgb(88,182,221)'
+];
 const Dashboard = props => {
-  const COLORS = [
-    'rgb(220,33,442)',
-    'rgb(127,230,18)',
-    'rgb(93,132,246)',
-    'rgb(198,75,10)',
-    'rgb(55,192,98)',
-    'rgb(210,215,17)',
-    'rgb(15,150,205)',
-    'rgb(78,176,33)',
-    'rgb(242,57,201)',
-    'rgb(88,198,108)',
-    'rgb(127,40,237)',
-    'rgb(10,99,120)',
-    'rgb(215,38,152)',
-    'rgb(171,205,40)',
-    'rgb(55,76,101)',
-    'rgb(33,210,58)',
-    'rgb(185,20,135)',
-    'rgb(252,176,65)',
-    'rgb(29,182,170)',
-    'rgb(63,82,244)',
-    'rgb(144,210,31)',
-    'rgb(224,102,86)',
-    'rgb(46,150,246)',
-    'rgb(63,174,44)',
-    'rgb(237,24,109)',
-    'rgb(176,51,76)',
-    'rgb(93,39,154)',
-    'rgb(232,34,217)',
-    'rgb(128,218,156)',
-    'rgb(225,34,71)',
-    'rgb(88,182,204)',
-    'rgb(127,28,112)',
-    'rgb(182,117,189)',
-    'rgb(13,224,42)',
-    'rgb(44,65,210)',
-    'rgb(199,66,31)',
-    'rgb(57,211,128)',
-    'rgb(31,74,163)',
-    'rgb(240,82,179)',
-    'rgb(160,186,37)',
-    'rgb(88,160,212)',
-    'rgb(127,10,66)',
-    'rgb(187,86,26)',
-    'rgb(14,100,129)',
-    'rgb(90,43,160)',
-    'rgb(47,147,235)',
-    'rgb(141,37,171)',
-    'rgb(187,171,24)',
-    'rgb(150,12,93)',
-    'rgb(82,229,199)',
-    'rgb(255,24,75)',
-    'rgb(134,222,128)',
-    'rgb(14,58,79)',
-    'rgb(33,221,250)',
-    'rgb(222,9,159)',
-    'rgb(115,151,59)',
-    'rgb(63,68,113)',
-    'rgb(255,71,16)',
-    'rgb(231,26,195)',
-    'rgb(14,171,153)',
-    'rgb(64,31,158)',
-    'rgb(127,91,13)',
-    'rgb(221,37,99)',
-    'rgb(60,191,167)',
-    'rgb(255,0,240)',
-    'rgb(160,215,29)',
-    'rgb(30,15,214)',
-    'rgb(148,112,59)',
-    'rgb(187,61,24)',
-    'rgb(78,99,196)',
-    'rgb(127,93,12)',
-    'rgb(179,9,73)',
-    'rgb(99,154,209)',
-    'rgb(255,192,15)',
-    'rgb(187,127,224)',
-    'rgb(59,132,96)',
-    'rgb(246,39,169)',
-    'rgb(135,12,152)',
-    'rgb(228,133,24)',
-    'rgb(49,190,187)',
-    'rgb(87,40,150)',
-    'rgb(189,142,94)',
-    'rgb(126,193,220)',
-    'rgb(52,61,98)',
-    'rgb(255,111,91)',
-    'rgb(78,110,212)',
-    'rgb(94,88,66)',
-    'rgb(187,6,157)',
-    'rgb(23,146,91)',
-    'rgb(62,218,240)',
-    'rgb(227,24,172)',
-    'rgb(94,108,69)',
-    'rgb(46,113,48)',
-    'rgb(205,9,232)',
-    'rgb(141,203,111)',
-    'rgb(97,37,87)',
-    'rgb(223,61,105)',
-    'rgb(88,182,221)'
-  ];
+  console.log(props);
+
   const donutOptions = {
     responsive: true,
     plugins: {
@@ -154,31 +169,10 @@ const Dashboard = props => {
   const [allTransactions, setAllTransactions] = React.useState([]);
   const currency = useCurrency(state => state.currency);
 
-  function shuffle(array) {
-    let currentIndex = array.length,
-      randomIndex;
-
-    // While there remain elements to shuffle.
-    while (currentIndex != 0) {
-      // Pick a remaining element.
-      randomIndex = Math.floor(Math.random() * currentIndex);
-      currentIndex--;
-
-      // And swap it with the current element.
-      [array[currentIndex], array[randomIndex]] = [array[randomIndex], array[currentIndex]];
-    }
-
-    return array;
-  }
-
   React.useEffect(() => {
     async function fetchTransactions() {
       try {
-        const res = await axios.post(
-          `/api/all-transactions`,
-          { email: user?.email },
-          { headers: { 'CSRF-Token': props.csrfToken } }
-        );
+        const res = await axios.post(`/api/all-transactions`, { email: user?.email });
         const data = res.data.transactions;
 
         setAllTransactions(data);
@@ -223,8 +217,8 @@ const Dashboard = props => {
       {
         label: 'Amount',
         data: savingsCategory.map(s => s.amount),
-        backgroundColor: shuffle(COLORS),
-        borderColor: shuffle(COLORS),
+        backgroundColor: shuffle(),
+        borderColor: shuffle(),
         borderWidth: 1
       }
     ]
@@ -235,15 +229,15 @@ const Dashboard = props => {
       {
         label: 'Amount',
         data: expensesCategory.map(e => e.amount),
-        backgroundColor: shuffle(COLORS),
-        borderColor: shuffle(COLORS),
+        backgroundColor: shuffle(),
+        borderColor: shuffle(),
         borderWidth: 1
       }
     ]
   };
 
   return (
-    <Layout csrfToken={props.csrfToken}>
+    <Layout>
       <Box sx={{ mb: 1 }}>
         <Grid
           container
@@ -400,10 +394,6 @@ const Dashboard = props => {
 
 export default Dashboard;
 
-export async function getServerSideProps(context) {
-  const { req, res } = context;
-  await csrf(req, res);
-  return {
-    props: { csrfToken: req.csrfToken() }
-  };
-}
+export const getServerSideProps = setup(async ({ req, res }) => {
+  return { props: {} };
+});
