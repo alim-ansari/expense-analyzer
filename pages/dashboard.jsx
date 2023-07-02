@@ -319,10 +319,10 @@ const Dashboard = props => {
                   }}
                   onInit={typewriter => {
                     typewriter
-                      .typeString('Add some transactions to view Information')
-                      .pauseFor(300)
-                      .deleteChars(11)
-                      .typeString('Statistics...')
+                      .typeString('Loading...')
+                      .pauseFor(1500)
+                      .deleteChars(10)
+                      .typeString('Add some transactions to view Statistics...')
                       .pauseFor(2500)
                       .deleteAll()
                       .callFunction(() => {
