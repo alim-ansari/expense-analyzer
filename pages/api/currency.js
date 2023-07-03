@@ -7,7 +7,7 @@ async function handler(req, res) {
       case 'POST':
         let { email } = req.body;
         const client = await clientPromise;
-        const db = client.db('expense-tracker');
+        const db = client.db('expense-analyzer');
         let user = await db.collection('users').findOne({ email });
         if (user) {
           res.json({ currency: user.currency });

@@ -7,7 +7,7 @@ async function handler(req, res) {
       case 'POST':
         if (req.body?.email) {
           const client = await clientPromise;
-          const db = client.db('expense-tracker');
+          const db = client.db('expense-analyzer');
           let allTransactions;
           switch (req.body?.type) {
             case 'saving':

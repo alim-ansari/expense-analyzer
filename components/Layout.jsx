@@ -153,12 +153,12 @@ export default function Layout(props) {
               color: 'inherit',
               textDecoration: 'none'
             }}>
-            Expense Tracker
+            Expense Analyzer
           </Typography>
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Expense Tracker" src={user?.picture} />
+                <Avatar alt="Expense Analyzer" src={user?.picture} />
               </IconButton>
             </Tooltip>
             <Menu
@@ -253,7 +253,7 @@ export default function Layout(props) {
   return !isLoading && user ? (
     <Box sx={{ display: 'flex' }}>
       <Head>
-        <title>Expense Tracker</title>
+        <title>Expense Analyzer</title>
       </Head>
       <CssBaseline />
       <AppBar
@@ -282,14 +282,14 @@ export default function Layout(props) {
               fontWeight: 500,
               textDecoration: 'none'
             }}>
-            Expense Tracker
+            Expense Analyzer
           </Typography>
           <Toolbar className="flex pr-0">
             <div>
               <Box sx={{ flexGrow: 0 }}>
                 <Tooltip title="Open settings">
                   <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                    <Avatar alt="Expense Tracker" src={user?.picture} sx={{ width: 30, height: 30 }} />
+                    <Avatar alt="Expense Analyzer" src={user?.picture} sx={{ width: 30, height: 30 }} />
                   </IconButton>
                 </Tooltip>
                 <Menu

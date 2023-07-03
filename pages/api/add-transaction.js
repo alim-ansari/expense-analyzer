@@ -7,7 +7,7 @@ async function handler(req, res) {
       case 'POST':
         let bodyObject = req.body;
         const client = await clientPromise;
-        const db = client.db('expense-tracker');
+        const db = client.db('expense-analyzer');
         let myPost = await db.collection('transactions').insertOne(bodyObject);
         res.json(myPost);
         break;

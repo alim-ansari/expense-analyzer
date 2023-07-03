@@ -26,7 +26,7 @@ export default function Index() {
         <Box display="flex" justifyContent="center" alignItems="center" minHeight="100vh">
           <Container maxWidth="sm" className="">
             <Typography component="h3" variant="h3" align="center" color="text.primary" gutterBottom sx={{ pb: 3 }}>
-              Expense Tracker
+              Expense Analyzer
             </Typography>
             <Typography variant="h6" align="center" textAlign="justify" color="text.secondary" paragraph>
               A software designed to help individuals and businesses to conveniently monitor and manage financial

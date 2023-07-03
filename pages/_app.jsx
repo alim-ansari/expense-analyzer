@@ -21,7 +21,7 @@ export default function App(props) {
     <UserProvider>
       <Head>
         <meta name="viewport" content="initial-scale=1, width=device-width" />
-        <title>Expense Tracker</title>
+        <title>Expense Analyzer</title>
       </Head>
       <CacheProvider value={emotionCache}>
         <ThemeProvider theme={theme}>

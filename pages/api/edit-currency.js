@@ -7,7 +7,7 @@ async function handler(req, res) {
       case 'POST':
         const { email, currency } = req.body;
         const client = await clientPromise;
-        const db = client.db('expense-tracker');
+        const db = client.db('expense-analyzer');
         let result = await db.collection('users').updateOne({ email }, { $set: { currency } });
         res.json(result);
         break;
