@@ -239,11 +239,7 @@ const Dashboard = props => {
     ]
   };
 
-  return loading ? (
-    <Box sx={{ display: 'flex', height: '100vh', width: '100vw' }}>
-      <CircularProgress sx={{ margin: 'auto' }} />
-    </Box>
-  ) : (
+  return (
     <>
       <Layout>
         <Box sx={{ mb: 1 }}>

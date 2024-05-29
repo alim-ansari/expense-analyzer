@@ -17,8 +17,5 @@ module.exports = defineConfig({
     baseUrl: 'http://localhost:3000',
     experimentalSessionAndOrigin: true
   },
-  env: {
-    USER_EMAIL: 'admin@alimansari.com',
-    USER_PASSWORD: 'rH$x4zV5a6x3y2h'
-  }
+  env: {}
 });
